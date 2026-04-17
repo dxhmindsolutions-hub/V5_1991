@@ -562,19 +562,19 @@ if (modoCocina) {
       </div>
 
       {/* 🔥 MODIFICACIONES */}
-      {(t.nota || t.aceite || t.gluten || t.verdura || t.carne || t.huevo || t.marisco) && (
-        <div className="text-[10px] text-orange-600 font-semibold">
-          {[
-            t.verdura && "NO VERDURA",
-            t.carne && "NO CARNE",
-            t.gluten && "SIN GLUTEN",
-            t.aceite && "ACEITE",
-            t.huevo && "NO HUEVO",
-            t.marisco && "ALERGIA MARISCO",
-            t.nota
-          ].filter(Boolean).join(" · ")}
-        </div>
-      )}
+   {(t.nota || t.aceite || t.gluten || t.verdura || t.carne || t.huevo || t.marisco) && (
+  <div className="text-[10px] text-orange-600 font-semibold">
+    {[
+      t.verdura && "NO VERDURA",
+      t.carne && "NO CARNE",
+      t.gluten && "SIN GLUTEN",
+      t.aceite && "ACEITE",
+      t.huevo && "NO HUEVO",
+      t.marisco && "ALERGIA MARISCO",
+      t.nota
+    ].filter(Boolean).join(" · ")}
+  </div>
+)}
 
     </div>
 
