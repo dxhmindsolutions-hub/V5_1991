@@ -373,15 +373,13 @@ if (modoCocina) {
 {ticket.map((t,i)=>(
   <div key={i} className="flex justify-between text-xs font-mono">
 
-    <span className="w-8">{t.cantidad}</span>
-
-    <span className="w-12">{t.precio.toFixed(2)}</span>
-
-    <span className="flex-1 text-left pl-2 truncate">
-      {t.nombre}
+    {/* IZQUIERDA */}
+    <span>
+      {t.cantidad} x {t.precio.toFixed(2)} {t.nombre}
     </span>
 
-    <span className="w-12 text-right">
+    {/* DERECHA */}
+    <span className="ml-2">
       {(t.precio*t.cantidad).toFixed(2)}
     </span>
 
