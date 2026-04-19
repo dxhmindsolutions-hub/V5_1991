@@ -35,15 +35,16 @@ function POSApp() {
   const [modoGestion, setModoGestion] = useState(false);
   const [modoTicket, setModoTicket] = useState(false);
   const [modoCocina, setModoCocina] = useState(false);
+  const [tipoPedido, setTipoPedido] = useState("comer"); // comer | llevar | recoger
+ const [telefono, setTelefono] = useState("");
+ const [direccion, setDireccion] = useState("");
+ const [tiempo, setTiempo] = useState("");
   const [busqueda, setBusqueda] = useState("");
   const [nuevo, setNuevo] = useState({ ref:"", nombre:"", precio:"", categoria:"" });
   const [editando, setEditando] = useState(null);
   const [busquedaGestion, setBusquedaGestion] = useState("");
 const [productoEditando, setProductoEditando] = useState(null);
 const [notaTemp, setNotaTemp] = useState("");
-const [tipoPedido, setTipoPedido] = useState("comer");
-const [telefono, setTelefono] = useState("");
-const [tiempo, setTiempo] = useState("");
 const [checksTemp, setChecksTemp] = useState({
   
   aceite: false,
@@ -106,6 +107,7 @@ setArticulos(data);
   if(tipoPedido === "comer"){
     setTelefono("");
     setTiempo("");
+    setDireccion("");
   }
 },[tipoPedido]);
   
@@ -282,6 +284,12 @@ if (modoCocina) {
 {(tipoPedido === "llevar" || tipoPedido === "recoger") && (
   <div className="text-center text-xl font-bold">
     ⏱ {tiempo} min
+  </div>
+)}
+
+      {(tipoPedido === "llevar" || tipoPedido === "recoger") && direccion && (
+  <div className="text-center text-sm mt-1">
+    📍 {direccion}
   </div>
 )}
 
@@ -594,19 +602,40 @@ if (modoCocina) {
 </div>
 
       {(tipoPedido === "llevar" || tipoPedido === "recoger") && (
-  <div className="flex gap-2 mb-3">
+  <div className="mb-3 space-y-2">
+
     <input
-      placeholder="Teléfono"
+      placeholder="📞 Teléfono"
       value={telefono}
       onChange={e=>setTelefono(e.target.value)}
-      className="w-1/2 p-3 border rounded"
+      className="w-full p-3 border rounded"
     />
-    <input
-      placeholder="Minutos"
+
+    <select
       value={tiempo}
       onChange={e=>setTiempo(e.target.value)}
-      className="w-1/2 p-3 border rounded"
+      className="w-full p-3 border rounded"
+    >
+      <option value="">⏱ Tiempo estimado</option>
+      <option>10</option>
+      <option>15</option>
+      <option>20</option>
+      <option>30</option>
+      <option>40</option>
+      <option>50</option>
+      <option>60</option>
+      <option>70</option>
+      <option>80</option>
+      <option>90</option>
+    </select>
+
+    <input
+      placeholder="📍 Dirección"
+      value={direccion}
+      onChange={e=>setDireccion(e.target.value)}
+      className="w-full p-3 border rounded"
     />
+
   </div>
 )}
 
