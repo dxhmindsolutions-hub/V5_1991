@@ -39,6 +39,7 @@ function POSApp() {
  const [telefono, setTelefono] = useState("");
  const [direccion, setDireccion] = useState("");
  const [tiempo, setTiempo] = useState("");
+  const [metodoPago, setMetodoPago] = useState("");
   const [busqueda, setBusqueda] = useState("");
   const [nuevo, setNuevo] = useState({ ref:"", nombre:"", precio:"", categoria:"" });
   const [editando, setEditando] = useState(null);
@@ -723,6 +724,28 @@ if (modoCocina) {
     </select>
 
   </div>
+
+      <div className="flex gap-2">
+
+  <button
+    onClick={()=>setMetodoPago("EFECTIVO")}
+    className={`w-1/2 p-2 rounded ${
+      metodoPago === "EFECTIVO" ? "bg-green-600 text-white" : "bg-gray-200"
+    }`}
+  >
+    💵 Efectivo
+  </button>
+
+  <button
+    onClick={()=>setMetodoPago("VISA")}
+    className={`w-1/2 p-2 rounded ${
+      metodoPago === "VISA" ? "bg-blue-600 text-white" : "bg-gray-200"
+    }`}
+  >
+    💳 Visa
+  </button>
+
+</div>
 )}
 
       {/* 🔥 MODAL NOTAS */}
