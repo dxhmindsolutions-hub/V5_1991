@@ -588,46 +588,7 @@ if (modoCocina) {
 </div>
 
       <input value={busqueda} onChange={e=>setBusqueda(e.target.value)} onKeyDown={(e)=>{ if(e.key==="Enter"){agregarArticulo(busqueda); setBusqueda("");}}} placeholder="Referencia..." className="w-full p-3 border rounded mb-4"/>
-{(tipoPedido === "llevar" || tipoPedido === "recoger") && (
-  <div className="space-y-2 mb-4">
 
-    {/* DIRECCIÓN */}
-    <input
-      placeholder="📍 Dirección"
-      value={direccion}
-      onChange={e=>setDireccion(e.target.value)}
-      className="w-full p-3 border rounded"
-    />
-
-    {/* TELÉFONO */}
-    <input
-      placeholder="📞 Teléfono"
-      value={telefono}
-      onChange={e=>setTelefono(e.target.value)}
-      className="w-full p-3 border rounded"
-    />
-
-    {/* TIEMPO */}
-    <select
-      value={tiempo}
-      onChange={e=>setTiempo(e.target.value)}
-      className="w-full p-3 border rounded"
-    >
-      <option value="">⏱ Tiempo estimado</option>
-      <option>10 min</option>
-      <option>15 min</option>
-      <option>20 min</option>
-      <option>30 min</option>
-      <option>40 min</option>
-      <option>50 min</option>
-      <option>1h</option>
-      <option>1h 10min</option>
-      <option>1h 20min</option>
-      <option>1h 30min</option>
-    </select>
-
-  </div>
-)}
       {lista.length > 0 && <div className="bg-white rounded shadow mb-4">{lista.map(([ref,a])=><div key={ref} onClick={()=>agregarArticulo(ref)} className="p-3 border-b">{a.nombre} - {a.precio}€</div>)}</div>}
 
  <div className="bg-white p-4 rounded shadow">
@@ -702,6 +663,47 @@ if (modoCocina) {
     </div>
   )}
 </div>
+
+      {(tipoPedido === "llevar" || tipoPedido === "recoger") && (
+  <div className="space-y-2 mb-4">
+
+    {/* DIRECCIÓN */}
+    <input
+      placeholder="📍 Dirección"
+      value={direccion}
+      onChange={e=>setDireccion(e.target.value)}
+      className="w-full p-3 border rounded"
+    />
+
+    {/* TELÉFONO */}
+    <input
+      placeholder="📞 Teléfono"
+      value={telefono}
+      onChange={e=>setTelefono(e.target.value)}
+      className="w-full p-3 border rounded"
+    />
+
+    {/* TIEMPO */}
+    <select
+      value={tiempo}
+      onChange={e=>setTiempo(e.target.value)}
+      className="w-full p-3 border rounded"
+    >
+      <option value="">⏱ Tiempo estimado</option>
+      <option>10 min</option>
+      <option>15 min</option>
+      <option>20 min</option>
+      <option>30 min</option>
+      <option>40 min</option>
+      <option>50 min</option>
+      <option>1h</option>
+      <option>1h 10min</option>
+      <option>1h 20min</option>
+      <option>1h 30min</option>
+    </select>
+
+  </div>
+)}
 
       {/* 🔥 MODAL NOTAS */}
       {productoEditando && (
