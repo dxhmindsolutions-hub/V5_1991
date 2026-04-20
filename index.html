@@ -339,21 +339,6 @@ if (modoCocina) {
         -----------------------------
       </div>
 
-      {/* DATOS PEDIDO (SOLO LLEVAR/RECOGER) */}
-{(tipoPedido === "llevar" || tipoPedido === "recoger") && (
-  <div className="text-xl mt-2 space-y-1 font-bold">
-
-    {direccion && (
-      <div>📍 {direccion}</div>
-    )}
-
-    {telefono && (
-      <div>📞 {telefono}</div>
-    )}
-
-  </div>
-)}
-
       {/* BOTONES */}
       <div className="flex gap-2 mt-4">
         <button
