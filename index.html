@@ -240,6 +240,26 @@ const guardarArticulo = () => {
     const mes = String(ahora.getMonth() + 1).padStart(2, "0");
     const hora = String(ahora.getHours()).padStart(2, "0");
     const min = String(ahora.getMinutes()).padStart(2, "0");
+    const calcularHoraEntrega = () => {
+  if (!tiempo) return "";
+
+  const ahora = new Date();
+
+  // 🔥 EXTRAER MINUTOS (ej: "30 min" → 30)
+  let minutos = 0;
+
+  if (tiempo.includes("h")) {
+    const partes = tiempo.split("h");
+    minutos += parseInt(partes[0]) * 60;
+    if (partes[1]) minutos += parseInt(partes[1]);
+  } else {
+    minutos = parseInt(tiempo);
+  }
+
+  const entrega = new Date(ahora.getTime() + minutos * 60000);
+
+  return entrega.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+};
 
     const fechaKey = `${dia}${mes}`;
     let data = JSON.parse(localStorage.getItem("ticketData")) || {};
@@ -352,6 +372,12 @@ if (modoCocina) {
         💳 {metodoPago}
       </div>
     )}
+
+    {tiempo && (
+  <div className="mt-1">
+    🕒 {calcularHoraEntrega()}
+  </div>
+)}
 
   </div>
 )}
