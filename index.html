@@ -23,18 +23,18 @@
 
 const { useState, useEffect } = React;
   
-  const calcularHoraEntrega = () => {
-  if (!tiempo) return "";
+const calcularHoraEntrega = (tiempoValor) => {
+  if (!tiempoValor) return "";
 
   const ahora = new Date();
   let minutos = 0;
 
-  if (tiempo.includes("h")) {
-    const partes = tiempo.split("h");
+  if (tiempoValor.includes("h")) {
+    const partes = tiempoValor.split("h");
     minutos += parseInt(partes[0]) * 60;
     if (partes[1]) minutos += parseInt(partes[1]);
   } else {
-    minutos = parseInt(tiempo);
+    minutos = parseInt(tiempoValor);
   }
 
   const entrega = new Date(ahora.getTime() + minutos * 60000);
@@ -375,7 +375,7 @@ if (modoCocina) {
 
     {tiempo && (
   <div className="mt-1">
-    🕒 {calcularHoraEntrega()}
+🕒 ENTREGA: {calcularHoraEntrega()}
   </div>
 )}
 
