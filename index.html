@@ -22,6 +22,25 @@
 <script type="text/babel">
 
 const { useState, useEffect } = React;
+  
+  const calcularHoraEntrega = () => {
+  if (!tiempo) return "";
+
+  const ahora = new Date();
+  let minutos = 0;
+
+  if (tiempo.includes("h")) {
+    const partes = tiempo.split("h");
+    minutos += parseInt(partes[0]) * 60;
+    if (partes[1]) minutos += parseInt(partes[1]);
+  } else {
+    minutos = parseInt(tiempo);
+  }
+
+  const entrega = new Date(ahora.getTime() + minutos * 60000);
+
+  return entrega.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+};
 
 function POSApp() {
   // ✅ Hooks movidos dentro del componente
@@ -235,24 +254,7 @@ const guardarArticulo = () => {
   }));
 };
   const generarNumeroTicket = () => {
-    const calcularHoraEntrega = () => {
-  if (!tiempo) return "";
-
-  const ahora = new Date();
-  let minutos = 0;
-
-  if (tiempo.includes("h")) {
-    const partes = tiempo.split("h");
-    minutos += parseInt(partes[0]) * 60;
-    if (partes[1]) minutos += parseInt(partes[1]);
-  } else {
-    minutos = parseInt(tiempo);
-  }
-
-  const entrega = new Date(ahora.getTime() + minutos * 60000);
-
-  return entrega.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
-};
+  
     const ahora = new Date();
     const dia = String(ahora.getDate()).padStart(2, "0");
     const mes = String(ahora.getMonth() + 1).padStart(2, "0");
