@@ -634,10 +634,10 @@ if (modoCocina) {
       <input value={busqueda} onChange={e=>setBusqueda(e.target.value)} onKeyDown={(e)=>{ if(e.key==="Enter"){agregarArticulo(busqueda); setBusqueda("");}}} placeholder="Referencia..." className="w-full p-3 border rounded mb-4"/>
 
       {lista.length > 0 && <div className="bg-white rounded shadow mb-4">{lista.map(([ref,a])=>
-       <div
+    <div
   key={ref}
   onClick={()=>agregarArticulo(ref)}
-  className="p-3 border-b grid grid-cols-[60px_1fr_70px] items-center"
+  className="p-3 border-b grid grid-cols-[70px_1fr_auto] items-center"
 >
   {/* REF */}
   <div className="font-bold">
@@ -650,7 +650,7 @@ if (modoCocina) {
   </div>
 
   {/* PRECIO */}
-  <div className="text-right font-mono tabular-nums">
+  <div className="text-right font-mono tabular-nums w-full">
     {a.precio}€
   </div>
 </div>
