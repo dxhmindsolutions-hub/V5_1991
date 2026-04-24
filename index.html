@@ -248,11 +248,91 @@ const guardarArticulo = () => {
   const base = total / 1.1;
   const iva = total - base;
   const porPersona = comensales ? (total / comensales).toFixed(2) : null;
-  const itemsNuevosCocina = () => {
-  return ticket.map(t => ({
-    ...t,
-    categoria: articulos[t.ref]?.categoria || ""
-  }));
+ const MENUS = {
+  "303": { // MENU 2P - A
+    primeros: ["1","4"],
+    segundos: ["22","58","44"]
+  },
+
+  "304": { // MENU 2P - B
+    primeros: ["1","4"],
+    segundos: ["26","65","75"]
+  },
+
+  "305": { // MENU 3P
+    primeros: ["1","4","3"],
+    segundos: ["22","58","44","26"]
+  },
+
+  "306": { // MENU 4P
+    primeros: ["1","4","3"],
+    segundos: ["22","58","65","124"]
+  },
+
+  "307": { // MENU 5P
+    primeros: ["1","4","3"],
+    segundos: ["22","58","37","124","65"]
+  },
+
+  "308": { // MENU 6P
+    primeros: ["1","4","3"],
+    segundos: ["22","58","37","124","65","74"]
+  }
+};
+ const itemsNuevosCocina = () => {
+  let resultado = [];
+
+  ticket.forEach(t => {
+
+    // 🔥 SI ES MENÚ
+    if (MENUS[t.ref]) {
+      const menu = MENUS[t.ref];
+
+      // 👉 (opcional) nombre del menú arriba
+      resultado.push({
+        tituloMenu: t.nombre
+      });
+
+      // 👉 PRIMEROS
+      menu.primeros.forEach(ref => {
+        const art = articulos[ref];
+        if (art) {
+          resultado.push({
+            ...art,
+            ref,
+            cantidad: t.cantidad
+          });
+        }
+      });
+
+      // 👉 SEPARADOR
+      resultado.push({
+        separador: true
+      });
+
+      // 👉 SEGUNDOS
+      menu.segundos.forEach(ref => {
+        const art = articulos[ref];
+        if (art) {
+          resultado.push({
+            ...art,
+            ref,
+            cantidad: t.cantidad
+          });
+        }
+      });
+
+    } else {
+      // 🔹 PRODUCTO NORMAL
+      resultado.push({
+        ...t,
+        categoria: articulos[t.ref]?.categoria || ""
+      });
+    }
+
+  });
+
+  return resultado;
 };
   const generarNumeroTicket = () => {
   
@@ -317,8 +397,25 @@ if (modoCocina) {
     if (!esBebida(a) && esBebida(b)) return -1;
     return 0;
   })
-  .map((t, i) => (
-   <div key={i} className="mb-1">
+ .map((t, i) => {
+
+  // 🔥 TITULO MENU
+  if (t.tituloMenu) {
+    return (
+      <div key={i} className="text-xl font-bold mt-2">
+        {t.tituloMenu}
+      </div>
+    );
+  }
+
+  // 🔥 LINEA SEPARADORA
+  if (t.separador) {
+    return (
+      <div key={i} className="border-t border-black my-1"></div>
+    );
+  }
+
+  return (
 
       {/* LINEA PRINCIPAL */}
       <div className="flex items-end gap-2">
