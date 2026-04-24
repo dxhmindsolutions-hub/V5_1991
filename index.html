@@ -674,23 +674,44 @@ if (modoCocina) {
   </div>
 )}
 
-      {(t.nota || t.aceite || t.gluten || t.verdura || t.carne || t.huevo || t.marisco) && (
-        <div className="text-[10px] text-orange-600 font-semibold">
-          {[
-            t.verdura && "NO VERDURA",
-            t.carne && "NO CARNE",
-            t.gluten && "SIN GLUTEN",
-            t.aceite && "ACEITE",
-            t.huevo && "NO HUEVO",
-            t.marisco && "ALERGIA MARISCO",
-            t.nota
-          ].filter(Boolean).join(" · ")}
+     {ticket.map((t, i) => (
+  <div key={i} className="border-b py-2">
+
+    {/* CONTENIDO PRINCIPAL */}
+    <div className="flex justify-between items-start">
+
+      {/* IZQUIERDA */}
+      <div className="flex-1">
+
+        <div className="font-bold">
+          {t.cantidad} x {t.nombre}
         </div>
-      )}
+
+        {(t.nota || t.aceite || t.gluten || t.verdura || t.carne || t.huevo || t.marisco) && (
+          <div className="text-[10px] text-orange-600 font-semibold">
+            {[
+              t.verdura && "NO VERDURA",
+              t.carne && "NO CARNE",
+              t.gluten && "SIN GLUTEN",
+              t.aceite && "ACEITE",
+              t.huevo && "NO HUEVO",
+              t.marisco && "ALERGIA MARISCO",
+              t.nota
+            ].filter(Boolean).join(" · ")}
+          </div>
+        )}
+
+      </div>
+
+      {/* DERECHA PRECIO */}
+      <div className="font-mono">
+        {(t.precio * t.cantidad).toFixed(2)}€
+      </div>
+
     </div>
 
     {/* BOTONES */}
-    <div className="flex gap-1">
+    <div className="flex gap-1 mt-2">
       <button onClick={() => restar(t.ref)}>➖</button>
       <button onClick={() => sumar(t.ref)}>➕</button>
       <button onClick={() => eliminarLinea(t.ref)}>❌</button>
