@@ -589,7 +589,8 @@ if (modoCocina) {
         <button onClick={()=>setMenuAbierto(true)}>☰</button>
         {menuAbierto && <div className="fixed inset-0 bg-black bg-opacity-40 z-40" onClick={()=>setMenuAbierto(false)}/>}
 
-        <div className={`fixed top-0 left-0 w-64 h-full bg-white z-50 transform ${menuAbierto ? "translate-x-0" : "-translate-x-full"} transition overflow-y-auto`}>
+        <div className={`fixed top-0 left-0 w-64 h-full bg-white z-50 transform ${menuAbierto ? "translate-x-0" : "-translate-x-full"} transition overflow-y-auto pb-10`}
+          
           <div className="p-4 font-bold">Categorías</div>
           {categorias.map(c => (
             <button key={c} onClick={()=>{ setCategoriaActiva(c); setMenuAbierto(false); }} className={`block w-full text-left p-3 ${categoriaActiva === c ? "bg-black text-white" : "bg-gray-100"}`}>{c}</button>
@@ -632,20 +633,27 @@ if (modoCocina) {
 
       <input value={busqueda} onChange={e=>setBusqueda(e.target.value)} onKeyDown={(e)=>{ if(e.key==="Enter"){agregarArticulo(busqueda); setBusqueda("");}}} placeholder="Referencia..." className="w-full p-3 border rounded mb-4"/>
 
-      {lista.length > 0 && <div className="bg-white rounded shadow mb-4">{lista.map(([ref,a])=><div key={ref} onClick={()=>agregarArticulo(ref)} className="p-3 border-b">{a.nombre} - {a.precio}€</div>)}</div>}
+      {lista.length > 0 && <div className="bg-white rounded shadow mb-4">{lista.map(([ref,a])=>
+       <div
+  key={ref}
+  onClick={()=>agregarArticulo(ref)}
+  className="p-3 border-b grid grid-cols-[60px_1fr_70px] items-center"
+>
+  {/* REF */}
+  <div className="font-bold">
+    {ref}
+  </div>
 
- <div className="bg-white p-4 rounded shadow">
-  <b>MESA {pedidoNumero}</b>
+  {/* NOMBRE */}
+  <div className="truncate">
+    {a.nombre}
+  </div>
 
-  {ticket.map((t, i) => (
-  <div key={i} className="border-b py-2 flex justify-between items-center">
-
-    <div>
-      {t.nombre}
-
-      <div className="text-xs">
-        {t.cantidad} x {t.precio}€
-      </div>
+  {/* PRECIO */}
+  <div className="text-right font-mono tabular-nums">
+    {a.precio}€
+  </div>
+</div>
 
       {/* 🔥 MODIFICACIONES */}
    {(t.nota || t.aceite || t.gluten || t.verdura || t.carne || t.huevo || t.marisco) && (
