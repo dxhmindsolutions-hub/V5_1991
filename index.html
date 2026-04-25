@@ -146,12 +146,13 @@ setArticulos(data);
     // 👉 añadir línea del menú (visible en pantalla)
     setTicket(prev => [
       ...prev,
-      {
-        ref,
-        ...artMenu,
-        cantidad: 1,
-        esMenuPadre: true
-      },
+     {
+  ref,
+  ...artMenu,
+  cantidad: 1,
+  esMenuPadre: true,
+  mods: {} // 🔥 AQUÍ GUARDAMOS MODIFICACIONES POR REF
+}
     ]);
 
     return;
@@ -225,6 +226,24 @@ setArticulos(data);
     huevo: item.huevo || false,
     marisco: item.marisco || false
   });
+};
+
+  const editarSubMenu = (menuRef, subRef) => {
+  const texto = prompt(`Modificar plato ${subRef}:`);
+  if (!texto) return;
+
+  setTicket(ticket.map(t => {
+    if (t.ref === menuRef && t.esMenuPadre) {
+      return {
+        ...t,
+        mods: {
+          ...t.mods,
+          [subRef]: texto.toUpperCase()
+        }
+      };
+    }
+    return t;
+  }));
 };
 
   // GESTIÓN
