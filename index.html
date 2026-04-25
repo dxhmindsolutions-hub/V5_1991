@@ -140,6 +140,40 @@ setArticulos(data);
 
   // 🔥 ARTÍCULO PERSONALIZADO
   if (ref === "0") {
+    // 🔥 SI ES MENÚ → EXPANDIR
+if (MENUS[ref]) {
+  const menu = MENUS[ref];
+  let nuevos = [];
+
+  // PRIMEROS
+  menu.primeros.forEach(r => {
+    const art = articulos[r];
+    if (art) {
+      nuevos.push({
+        ref: r,
+        ...art,
+        cantidad: 1,
+        esMenu: ref // 👈 importante
+      });
+    }
+  });
+
+  // SEGUNDOS
+  menu.segundos.forEach(r => {
+    const art = articulos[r];
+    if (art) {
+      nuevos.push({
+        ref: r,
+        ...art,
+        cantidad: 1,
+        esMenu: ref
+      });
+    }
+  });
+
+  setTicket([...ticket, ...nuevos]);
+  return;
+}
     const nombre = prompt("Nombre del producto:");
     if (!nombre) return;
 
