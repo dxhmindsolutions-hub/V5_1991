@@ -152,23 +152,6 @@ setArticulos(data);
         cantidad: 1,
         esMenuPadre: true
       },
-
-      // 👉 añadir hijos ocultos (platos del menú)
-      ...MENUS[ref].primeros.map(r => ({
-        ref: r,
-        ...articulos[r],
-        cantidad: 1,
-        esHijoMenu: true,
-        menuPadre: ref
-      })),
-
-      ...MENUS[ref].segundos.map(r => ({
-        ref: r,
-        ...articulos[r],
-        cantidad: 1,
-        esHijoMenu: true,
-        menuPadre: ref
-      }))
     ]);
 
     return;
@@ -337,10 +320,7 @@ const guardarArticulo = () => {
       });
 
     } 
-    // 🔹 IGNORAR HIJOS DEL MENÚ
-    else if (t.esHijoMenu) {
-      return;
-    }
+
     // 🔹 PRODUCTO NORMAL
     else {
       resultado.push(t);
