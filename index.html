@@ -138,42 +138,44 @@ setArticulos(data);
   const agregarArticulo = (ref) => {
   if (!pedidoNumero) return alert("Introduce mesa");
 
-  // 🔥 ARTÍCULO PERSONALIZADO
-  if (ref === "0") {
-  // 🔥 SI ES MENÚ → AÑADIR MENÚ + HIJOS
-if (MENUS[ref]) {
-  const menu = MENUS[ref];
+  // 🔥 1. SI ES MENÚ → AÑADIR MENÚ + HIJOS
+  if (MENUS[ref]) {
 
-  // 👉 Añadir el menú principal
-  const itemMenu = articulos[ref];
-  let nuevos = [];
+    const artMenu = articulos[ref];
 
-  if (itemMenu) {
-    nuevos.push({
-      ref,
-      ...itemMenu,
-      cantidad: 1,
-      esMenuPadre: true
-    });
-  }
+    // 👉 añadir línea del menú (visible en pantalla)
+    setTicket(prev => [
+      ...prev,
+      {
+        ref,
+        ...artMenu,
+        cantidad: 1,
+        esMenuPadre: true
+      },
 
-  // 👉 Añadir platos hijos
-  [...menu.primeros, ...menu.segundos].forEach(r => {
-    const art = articulos[r];
-    if (art) {
-      nuevos.push({
+      // 👉 añadir hijos ocultos (platos del menú)
+      ...MENUS[ref].primeros.map(r => ({
         ref: r,
-        ...art,
+        ...articulos[r],
         cantidad: 1,
         esHijoMenu: true,
         menuPadre: ref
-      });
-    }
-  });
+      })),
 
-  setTicket([...ticket, ...nuevos]);
-  return;
-}
+      ...MENUS[ref].segundos.map(r => ({
+        ref: r,
+        ...articulos[r],
+        cantidad: 1,
+        esHijoMenu: true,
+        menuPadre: ref
+      }))
+    ]);
+
+    return;
+  }
+
+  // 🔥 2. ARTÍCULO PERSONALIZADO
+  if (ref === "0") {
     const nombre = prompt("Nombre del producto:");
     if (!nombre) return;
 
@@ -185,18 +187,19 @@ if (MENUS[ref]) {
       return;
     }
 
-    const nuevoItem = {
-      ref: "0",
-      nombre,
-      precio,
-      cantidad: 1
-    };
-
-    setTicket([...ticket, nuevoItem]);
+    setTicket([
+      ...ticket,
+      {
+        ref: "0",
+        nombre,
+        precio,
+        cantidad: 1
+      }
+    ]);
     return;
   }
 
-  // 🔹 NORMAL
+  // 🔹 3. NORMAL
   const art = articulos[ref];
   if (!art) return;
 
@@ -818,6 +821,18 @@ if (modoCocina) {
 )}
 
   {ticket.map((t, i) => {
+
+  {t.esMenuPadre && (
+  <div className="text-[10px] text-gray-500 mt-1">
+    {ticket
+      .filter(x => x.menuPadre === t.ref)
+      .map((x, idx) => (
+        <div key={idx}>
+          • {x.nombre}
+        </div>
+      ))}
+  </div>
+)}
 
   // 🔥 NO mostrar hijos sueltos
   if (t.esHijoMenu) return null;
