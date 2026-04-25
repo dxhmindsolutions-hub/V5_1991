@@ -328,10 +328,13 @@ const guardarArticulo = () => {
 
       const menu = MENUS[t.ref];
 
-      const refs = [
-        ...menu.primeros,
-        ...menu.segundos
-      ].map(r => `${t.cantidad}x${r}`).join(" ");
+   const refs = [
+  ...menu.primeros,
+  ...menu.segundos
+].map(r => {
+  const mod = t.mods?.[r];
+  return `${t.cantidad}x${r}${mod ? "(" + mod + ")" : ""}`;
+}).join(" ");
 
       resultado.push({
         esMenu: true,
@@ -825,17 +828,24 @@ if (modoCocina) {
           </div>
 
           {/* 🔥 HIJOS DEL MENÚ (ESTILO MODIFICACIONES) */}
-        {t.esMenuPadre && (
-  <div className="text-[10px] text-blue-600 font-semibold">
+    {t.esMenuPadre && (
+  <div className="text-[10px] text-blue-600 font-semibold flex flex-wrap gap-1">
     {[
       ...MENUS[t.ref].primeros,
       ...MENUS[t.ref].segundos
-    ]
-      .map(r => {
-        const mod = t.mods?.[r];
-        return `${r}${mod ? " (" + mod + ")" : ""}`;
-      })
-      .join(" · ")}
+    ].map(r => {
+      const mod = t.mods?.[r];
+
+      return (
+        <span
+          key={r}
+          onClick={() => editarSubMenu(t.ref, r)}
+          className="cursor-pointer"
+        >
+          {r}{mod ? ` (${mod})` : ""}
+        </span>
+      );
+    })}
   </div>
 )}
 
