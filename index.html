@@ -790,15 +790,16 @@ if (modoCocina) {
 
   {ticket.map((t, i) => {
 
-  {t.esMenuPadre && (
-  <div className="text-[10px] text-gray-500 mt-1">
-    {ticket
-      .filter(x => x.menuPadre === t.ref)
-      .map((x, idx) => (
-        <div key={idx}>
-          • {x.nombre}
-        </div>
-      ))}
+ {t.esMenuPadre && (
+  <div className="text-[10px] text-blue-600 font-semibold">
+    {[
+      ...MENUS[t.ref].primeros,
+      ...MENUS[t.ref].segundos
+    ]
+      .map(r => `${r}`)
+      .join(" · ")}
+  </div>
+)}
   </div>
 )}
 
