@@ -790,17 +790,6 @@ if (modoCocina) {
 
   {ticket.map((t, i) => {
 
- {t.esMenuPadre && (
-  <div className="text-[10px] text-blue-600 font-semibold">
-    {[
-      ...MENUS[t.ref].primeros,
-      ...MENUS[t.ref].segundos
-    ]
-     .map(r => {
-  const mod = t.mods?.[r];
-  return `${r}${mod ? " (" + mod + ")" : ""}`;
-})
-
   // 🔥 NO mostrar hijos sueltos
   if (t.esHijoMenu) return null;
 
@@ -817,14 +806,19 @@ if (modoCocina) {
           </div>
 
           {/* 🔥 HIJOS DEL MENÚ (ESTILO MODIFICACIONES) */}
-          {t.esMenuPadre && (
-            <div className="text-[10px] text-blue-600 font-semibold">
-              {ticket
-                .filter(h => h.menuPadre === t.ref)
-                .map(h => h.nombre.toUpperCase())
-                .join(" · ")}
-            </div>
-          )}
+        {t.esMenuPadre && (
+  <div className="text-[10px] text-blue-600 font-semibold">
+    {[
+      ...MENUS[t.ref].primeros,
+      ...MENUS[t.ref].segundos
+    ]
+      .map(r => {
+        const mod = t.mods?.[r];
+        return `${r}${mod ? " (" + mod + ")" : ""}`;
+      })
+      .join(" · ")}
+  </div>
+)}
 
           {/* MODIFICACIONES NORMALES */}
           {(t.nota || t.aceite || t.gluten || t.verdura || t.carne || t.huevo || t.marisco) && (
