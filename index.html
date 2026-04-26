@@ -431,20 +431,15 @@ if (modoCocina) {
 
       {/* LINEAS DEL MENU */}
     <div className="text-xl font-bold pl-6 leading-tight">
-  {t.lineas.map((l, idx) => {
-    return (
-      <div key={idx}>
-        {l.split("\n").map((linea, i) => {
-          return (
-            <div key={i} className={i > 0 ? "pl-6" : ""}>
-              {linea}
-            </div>
-          );
-        })}
+{t.lineas.map((l, idx) => (
+  <div key={idx}>
+    {l.split("\n").map((linea, i) => (
+      <div key={i} className={i > 0 ? "pl-6" : ""}>
+        {linea}
       </div>
-    );
-  })}
-</div>
+    ))}
+  </div>
+))}
 
     if (t.tituloMenu) {
       return (
