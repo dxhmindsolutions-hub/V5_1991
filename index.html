@@ -76,7 +76,8 @@ const [checksTemp, setChecksTemp] = useState({
   verdura: false,
   carne: false,
   huevo: false,
-  marisco: false
+  marisco: false,
+  frutossecos: false
 });
   
   const exportarArticulos = () => {
@@ -226,7 +227,8 @@ setArticulos(data);
     verdura: item.verdura || false,
     carne: item.carne || false,
     huevo: item.huevo || false,
-    marisco: item.marisco || false
+    marisco: item.marisco || false,
+    frutossecos: item.frutossecos || false
   });
 };
 
@@ -240,7 +242,8 @@ const editarSubMenu = (menuRef, subRef) => {
     verdura: false,
     carne: false,
     huevo: false,
-    marisco: false
+    marisco: false,
+    frutossecos: false
   });
 };
 
@@ -459,7 +462,7 @@ if (modoCocina) {
             {t.cantidad} x {t.ref}
           </div>
 
-          {(t.verdura || t.carne || t.gluten || t.aceite || t.huevo || t.marisco || t.nota) && (
+          {(t.verdura || t.carne || t.gluten || t.aceite || t.huevo || t.marisco|| t.frutossecos || t.nota) && (
             <div className="text-lg font-bold leading-tight">
               {[
                 t.verdura && "NO VERDURA",
@@ -468,6 +471,7 @@ if (modoCocina) {
                 t.aceite && "ACEITE",
                 t.huevo && "NO HUEVO",
                 t.marisco && "ALERGIA MARISCO",
+                t.frutossecos && "ALERGIA FRUTOS SECOS",
                 t.nota
               ].filter(Boolean).join(" / ")}
             </div>
@@ -861,7 +865,7 @@ if (modoCocina) {
 )}
 
           {/* MODIFICACIONES NORMALES */}
-          {(t.nota || t.aceite || t.gluten || t.verdura || t.carne || t.huevo || t.marisco) && (
+          {(t.nota || t.aceite || t.gluten || t.verdura || t.carne || t.huevo || t.marisco || t.frutossecos) && (
             <div className="text-[10px] text-orange-600 font-semibold">
               {[
                 t.verdura && "NO VERDURA",
@@ -870,6 +874,7 @@ if (modoCocina) {
                 t.aceite && "ACEITE",
                 t.huevo && "NO HUEVO",
                 t.marisco && "ALERGIA MARISCO",
+                t.frutossecos && "ALERGIA FRUTOS SECOS",
                 t.nota
               ].filter(Boolean).join(" · ")}
             </div>
@@ -1035,6 +1040,7 @@ if (modoCocina) {
               ["carne", "NO CARNE"],
               ["huevo", "NO HUEVO"],
               ["marisco", "ALERGIA MARISCO"]
+              ["frutossecos", "ALERGIA FRUTOS SECOS"]
             ].map(([key, label]) => (
               <div key={key} className="flex justify-between items-center mb-1">
                 <span>{label}</span>
@@ -1104,6 +1110,7 @@ if (modoCocina) {
         ["carne", "NO CARNE"],
         ["huevo", "NO HUEVO"],
         ["marisco", "ALERGIA MARISCO"]
+        ["frutossecos", "ALERGIA FRUTOS SECOS"]
       ].map(([key, label]) => (
         <div key={key} className="flex justify-between items-center mb-1">
           <span>{label}</span>
@@ -1124,12 +1131,13 @@ if (modoCocina) {
         <button
           onClick={() => {
             const texto = [
-              checksTemp.verdura && "SIN VERDURA",
-              checksTemp.carne && "SIN CARNE",
+              checksTemp.aceite && "ACEITE",
               checksTemp.gluten && "SIN GLUTEN",
-              checksTemp.aceite && "SIN ACEITE",
-              checksTemp.huevo && "SIN HUEVO",
-              checksTemp.marisco && "SIN MARISCO",
+              checksTemp.verdura && "NO VERDURA",
+              checksTemp.carne && "NO CARNE",
+              checksTemp.huevo && "NO HUEVO",
+              checksTemp.marisco && "ALERGIA MARISCO",
+              checksTemp.frutossecos && "ALERGIA FRUTOS SECOS",
               notaTemp
             ].filter(Boolean).join(" ");
 
