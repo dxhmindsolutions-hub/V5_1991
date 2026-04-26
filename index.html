@@ -428,68 +428,74 @@ if (modoCocina) {
   
   .map((t, i) => {
     
- if (t.esMenu) {
-  return (
-    <div key={i} className="mb-2">
+.map((t, i) => {
 
-      {/* TITULO MENU */}
-      <div className="text-2xl font-bold">
-        {t.nombre}
-      </div>
-
-      {/* LINEAS DEL MENU */}
-    {t.lineas.map((l, idx) => {
-  // 🔥 quitar paréntesis si existen
-  const limpio = l.replace(/[()]/g, "");
-
-  const partes = limpio.split("\n");
-
-  return (
-    <div key={idx}>
-      {partes.map((linea, i) => (
-        <div key={i} className={i > 0 ? "pl-8" : ""}>
-          {linea}
-        </div>
-      ))}
-    </div>
-  );
-})}
-  
-// 🔹 PRODUCTO NORMAL
+  // 🔥 MENU
+  if (t.esMenu) {
     return (
-      <div key={i} className="mb-1">
+      <div key={i} className="mb-2">
 
-        <div className="flex items-end gap-2">
-          <div className="text-2xl font-bold whitespace-nowrap">
-            {t.cantidad} x {t.ref}
-          </div>
-
-          {(t.verdura || t.carne || t.gluten || t.aceite || t.huevo || t.marisco|| t.frutossecos || t.nota) && (
-            <div className="text-lg font-bold leading-tight">
-              {[
-                t.verdura && "NO VERDURA",
-                t.carne && "NO CARNE",
-                t.gluten && "NO GLUTEN",
-                t.aceite && "ACEITE",
-                t.huevo && "NO HUEVO",
-                t.marisco && "ALERGIA MARISCO",
-                t.frutossecos && "ALERGIA FRUTOS SECOS",
-                t.nota
-              ].filter(Boolean).join(" / ")}
-            </div>
-          )}
+        {/* TITULO MENU */}
+        <div className="text-2xl font-bold">
+          {t.nombre}
         </div>
 
-        <div className="text-xs leading-none">
-          {t.nombre?.toUpperCase()}
-        </div>
+        {/* LINEAS DEL MENU */}
+        <div className="text-xl font-bold pl-6 leading-tight">
+          {t.lineas.map((l, idx) => {
+            const limpio = l.replace(/[()]/g, "");
+            const partes = limpio.split("\n");
 
-        <div className="border-b border-dashed border-black mt-1"></div>
+            return (
+              <div key={idx}>
+                {partes.map((linea, i) => (
+                  <div key={i} className={i > 0 ? "pl-8" : ""}>
+                    {linea}
+                  </div>
+                ))}
+              </div>
+            );
+          })}
+        </div>
 
       </div>
     );
-  })}
+  }
 
+  // 🔹 PRODUCTO NORMAL
+  return (
+    <div key={i} className="mb-1">
+
+      <div className="flex items-end gap-2">
+        <div className="text-2xl font-bold whitespace-nowrap">
+          {t.cantidad} x {t.ref}
+        </div>
+
+        {(t.verdura || t.carne || t.gluten || t.aceite || t.huevo || t.marisco || t.frutossecos || t.nota) && (
+          <div className="text-lg font-bold leading-tight">
+            {[
+              t.verdura && "NO VERDURA",
+              t.carne && "NO CARNE",
+              t.gluten && "NO GLUTEN",
+              t.aceite && "ACEITE",
+              t.huevo && "NO HUEVO",
+              t.marisco && "ALERGIA MARISCO",
+              t.frutossecos && "ALERGIA FRUTOS SECOS",
+              t.nota
+            ].filter(Boolean).join(" / ")}
+          </div>
+        )}
+      </div>
+
+      <div className="text-xs leading-none">
+        {t.nombre?.toUpperCase()}
+      </div>
+
+      <div className="border-b border-dashed border-black mt-1"></div>
+
+    </div>
+  );
+})
 {(tipoPedido === "llevar" || tipoPedido === "recoger") && (
   <div className="mt-3 text-xl font-bold">
 
